@@ -139,9 +139,7 @@ app.get('/callback', (req, res) => {
         });
 
         // redirect to react app with tokens in query params
-        res.redirect(`http://localhost:3000/?${params}`).catch((error) => {
-          res.send(error);
-        });
+        res.redirect(`http://localhost:3000/?${params}`);
       } else {
         res.redirect(`/?${querystring.stringify({ error: 'invalid_token' })}`);
       }
@@ -150,6 +148,8 @@ app.get('/callback', (req, res) => {
       res.send(error);
     });
 });
+
+// access_token=BQAN-OlB5bCQ7KV2eT4R2ybqK0IoP1YRgGb02-1lVfWgYQHeLcTWcmUn0Jj-9uzDrdolWiOgZvcIJymTHwE6aYYvdvLZi2W3sHy64jqnNxCmzU3F-ceR6QzPoQwgdHBB6IDimD_cbYmeFf3ZVtn8nsQeTQ_ofVnSpD9XyL3cOcHJGvl7-JibMvCTAJKDweoyXn19pQxTpiQyg5HikP70Xw&expires_in=3600&refresh_token=AQBBM3mwUOBKG9_QnXrDDnuO0Hw9YtQ5GCetuEu-nuhPy1_bcykk_dIfhHrTx1wqWkXOW0PMH9-hBNSu6_r-7c2U-RDJYr7EsVL2E75aNOhT4SjpE94FX-RU1PA4YwA_8ig
 
 app.get('/refresh_token', function (req, res) {
   const { refresh_token } = req.query;
