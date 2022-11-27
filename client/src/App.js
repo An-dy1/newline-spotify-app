@@ -1,13 +1,7 @@
 import { useEffect, useState } from 'react';
 import { accessToken, logout, getUserProfile } from './spotify';
 import { catchErrors } from './utils';
-import {
-  createBrowserRouter,
-  RouterProvider,
-  Link,
-  Routes,
-  Route,
-} from 'react-router-dom';
+import { Link, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 function App() {
@@ -33,12 +27,11 @@ function App() {
           <div>
             <div>
               <nav>
-                <ul>
-                  <li>
-                    <Link to='/top-artists'>Top Artists</Link>
-                    <Link to='/'>Home</Link>
-                  </li>
-                </ul>
+                <Link to='/top-artists'>Top Artists</Link>
+                <Link to='/playlists/:id'>Playlist</Link>
+                <Link to='/playlists'>Playlists</Link>
+                <Link to='/top-tracks'>Top Tracks</Link>
+                <Link to='/'>Home</Link>
               </nav>
 
               <Routes>
@@ -46,6 +39,12 @@ function App() {
                   path='/top-artists'
                   element={<h1>Top Artists</h1>}
                 ></Route>
+                <Route path='/top-tracks' element={<h1>Top Tracks</h1>}></Route>
+                <Route
+                  path='/playlists/:id'
+                  element={<h1>Playlist</h1>}
+                ></Route>
+                <Route path='/playlists' element={<h1>Playlists</h1>}></Route>
                 <Route
                   path='/'
                   element={
