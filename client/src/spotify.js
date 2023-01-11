@@ -161,3 +161,11 @@ export const getTopArtists = (time_range = 'short_term') => {
 export const getTopTracks = (time_range = 'short_term') => {
     return axios.get(`/me/top/tracks?time_range=${time_range}`);
 };
+
+/**
+ * Get a a list of the current user's saved shows.
+ * TODO: with all of these endpoints handle if they don't come back 200.
+ */
+export const getSavedShows = () => {
+    return axios.get(`/me/shows?offset=0&limit=50`);
+};

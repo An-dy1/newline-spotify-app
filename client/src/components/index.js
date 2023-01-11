@@ -6,3 +6,6 @@ from './SectionWrapper';
 
 export { default as TrackList }
 from './TrackList';
+
+export { default as ShowsList }
+from './ShowsList';

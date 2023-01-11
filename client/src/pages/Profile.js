@@ -6,8 +6,14 @@ import {
   getCurrentUserPlaylists,
   getTopArtists,
   getTopTracks,
+  getSavedShows,
 } from '../spotify';
-import { ArtistsGrid, SectionWrapper, TrackList } from '../components';
+import {
+  ArtistsGrid,
+  SectionWrapper,
+  TrackList,
+  ShowsList,
+} from '../components';
 import { StyledHeader } from '../styles';
 
 const Profile = () => {
@@ -15,6 +21,7 @@ const Profile = () => {
   const [playlists, setPlaylists] = useState(null);
   const [topArtists, setTopArtists] = useState(null);
   const [topTracks, setTopTracks] = useState(null);
+  const [shows, setShows] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -29,6 +36,11 @@ const Profile = () => {
 
       const topTracks = await getTopTracks();
       setTopTracks(topTracks.data);
+
+      const savedShows = await getSavedShows();
+      setShows(savedShows.data);
+
+      console.log(savedShows.data);
     };
 
     catchErrors(fetchData());
@@ -70,6 +82,7 @@ const Profile = () => {
         <Link to='/playlists/:id'>Playlist</Link>
         <Link to='/playlists'>Playlists</Link>
         <Link to='/top-tracks'>Top Tracks</Link>
+        <Link to='/saved-shows'>Saved Shows</Link>
         <Link to='/'>Home</Link>
       </nav>
 
@@ -83,7 +96,6 @@ const Profile = () => {
               <ArtistsGrid artists={topArtists.items.slice(0, 10)} />
             </SectionWrapper>
           )}
-
           {topTracks && (
             <SectionWrapper
               title='Top Tracks this month'
@@ -91,6 +103,20 @@ const Profile = () => {
             >
               <TrackList tracks={topTracks.items.slice(0, 10)} />
             </SectionWrapper>
+          )}
+          {shows && (
+            <>
+              <p>{shows.items[0].show.name}</p>
+            </>
+          )}
+          {shows && (
+            <>
+              <SectionWrapper
+                title='Your Saved Shows'
+                seeAllLink='/saved-shows'
+              ></SectionWrapper>
+              <ShowsList topShows={shows.items} />
+            </>
           )}
         </main>
       ) : (
